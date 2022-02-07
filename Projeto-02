@@ -1,0 +1,93 @@
+const prompt = require("prompt-sync")();
+
+let reiniciarPartida = true;
+while (reiniciarPartida) {
+  console.log("");
+  let NumeroDeRodadas = prompt("Decidir quantas jogadas quer jogar : ");
+
+  console.log("");
+  console.log("");
+
+  let contadorVitoriasUsuario = 0, contadorVitoriasComputador = 0, contadorEmpates = 0;
+
+  for (i = 0; i < NumeroDeRodadas; i++) {
+    console.log("JOKENPO");
+    console.log("0 - Pedra: ");
+    console.log("1 - Papel: ");
+    console.log("2 - Tesoura: ");
+
+    let OpcaoDoUsuario = prompt("Escolha uma das opções acima: ");
+    console.log("");
+    let OpcapDoComputador = Math.floor(Math.random() * 3);
+
+    switch (OpcaoDoUsuario + OpcapDoComputador) {
+      // Vitória Usuário
+      case "02": // Pedra e Tesoura
+      case "10": // Papel e Pedra
+      case "21": // Tesoura e Papel
+        contadorVitoriasUsuario++;
+        console.log("O usuário ganhou está rodada.");
+        console.log(
+          "O usuário ganhou " +
+            contadorVitoriasUsuario +
+            (contadorVitoriasUsuario >= 1 ? " rodadas " : " rodada ") +
+            "até o momento"
+        );
+        // Vitória Computador
+        break;
+      case "01": // Pedra e Papel
+      case "12": // Papel e tesoura
+      case "20": // tesoura e pedra
+        contadorVitoriasComputador++;
+        console.log("O computador ganhou está rodada.");
+        console.log(
+          "O computador ganhou " +
+            contadorVitoriasComputador +
+            (contadorVitoriasComputador >= 1 ? " rodadas " : " rodada ") +"até o momento"
+        );
+        // Empates
+        break;
+      case "00": // Pedra e Pedra
+      case "11": // Papel e Papel
+      case "22": // Tesoura e Tesoura
+      contadorEmpates++;
+        console.log("A partida encerrou com um empate");
+
+        break;
+    }
+  }
+  console.log("");
+
+  if (
+    contadorVitoriasUsuario > contadorVitoriasComputador &&
+    contadorVitoriasUsuario > contadorEmpates
+  ) {
+    console.log(
+      "O usuário foi o grande campeão com " +
+        contadorVitoriasUsuario +
+        " pontos."
+    );
+  } else if (
+    contadorVitoriasComputador > contadorVitoriasUsuario &&
+    contadorVitoriasComputador > contadorEmpates
+  ) {
+    console.log(
+      "O computador foi o grande campeão com " +
+        contadorVitoriasComputador +
+        " pontos."
+    );
+  } else {
+    console.log("A partida finalizou empatada.");
+  }
+
+  console.log("");
+  console.log("");
+
+  let jogarNovamente = prompt("Deseja jogar novamente? S/N: ");
+
+  if (jogarNovamente === 'S' || jogarNovamente === 's') {
+    reiniciarPartida = true;
+  } else {
+      reiniciarPartida = false;
+  }
+}
